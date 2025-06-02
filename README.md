@@ -28,19 +28,19 @@ mkdir Saves
 
 ## Uso
 
-### Procesamiento Básico (10 archivos de prueba)
+### Procesamiento Completo (todos los archivos)
 ```powershell
 .\heroesdecode.ps1
 ```
 
-### Procesamiento Completo (todos los archivos)
-Editar la línea 37 en `heroesdecode.ps1` y cambiar:
+### Procesamiento de Prueba (solo 10 archivos)
+Editar la línea 34 en `heroesdecode.ps1` y cambiar:
 ```powershell
 # De:
-$replayFiles = $replayFiles | Select-Object -First 10
+$replay_files = Get-ChildItem -Path $replay_dir -Filter "*.StormReplay"
 
 # A:
-# $replayFiles = $replayFiles | Select-Object -First 10
+$replay_files = Get-ChildItem -Path $replay_dir -Filter "*.StormReplay" | Select-Object -First 10
 ```
 
 ## Datos Extraídos
@@ -101,10 +101,12 @@ heroes-storm-replay-analyzer/
 
 ## Notas
 
+- El script procesa **TODOS los archivos** por defecto para análisis completo
 - El script usa procesamiento secuencial para máxima compatibilidad
 - Cada archivo .StormReplay genera datos para 10 jugadores (5 por equipo)
 - Los archivos JSON individuales se guardan en `json_output/` para referencia
-- El procesamiento completo de 426 archivos toma aproximadamente 15-20 minutos
+- El procesamiento completo de 426+ archivos toma aproximadamente 15-20 minutos
+- Para modo de prueba (10 archivos), modifica el script según las instrucciones de uso
 
 ## Contribuir
 

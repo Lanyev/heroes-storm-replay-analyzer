@@ -1,6 +1,6 @@
 # Define the directory where your replay files are located
 $script_dir = Split-Path -Parent $MyInvocation.MyCommand.Path
-$replay_dir = $script_dir
+$replay_dir = Join-Path $script_dir "Saves"
 
 # Create output files
 $output_csv = Join-Path $script_dir "combined_output.csv"
@@ -30,11 +30,12 @@ $csv_header = @(
 )
 Add-Content -Path $structured_csv -Value ($csv_header -join ",")
 
-# Get all .StormReplay files in the directory (limit to 10 for testing)
-$replay_files = Get-ChildItem -Path $replay_dir -Filter "*.StormReplay" | Select-Object -First 10
+# Get all .StormReplay files in the directory
+$replay_files = Get-ChildItem -Path $replay_dir -Filter "*.StormReplay"
 
-Write-Host "🧪 MODO PRUEBA: Procesando solo $($replay_files.Count) archivos de replay..." -ForegroundColor Yellow
+Write-Host "🎮 PROCESAMIENTO COMPLETO: Procesando $($replay_files.Count) archivos de replay..." -ForegroundColor Green
 Write-Host "💨 Procesamiento SECUENCIAL para máxima compatibilidad" -ForegroundColor Cyan
+Write-Host "⏱️  Tiempo estimado: $([math]::Round($replay_files.Count * 2 / 60, 1)) minutos" -ForegroundColor Yellow
 
 # Process files sequentially for reliability
 Write-Host ""
@@ -125,7 +126,7 @@ foreach ($replay_file in $replay_files) {
 $replay_counter = $processedCount
 
 Write-Host ""
-Write-Host "🧪 MODO PRUEBA COMPLETADO. Total de replays procesados: $replay_counter de $($replay_files.Count)" -ForegroundColor Green
+Write-Host "🎯 PROCESAMIENTO COMPLETO COMPLETADO. Total de replays procesados: $replay_counter de $($replay_files.Count)" -ForegroundColor Green
 Write-Host ""
 Write-Host "📄 Archivos generados:" -ForegroundColor Cyan
 Write-Host "  • $output_csv (formato texto original)" -ForegroundColor White
@@ -145,7 +146,7 @@ Write-Host "  • combined_output.csv: Para lectura humana" -ForegroundColor Gra
 Write-Host "  • structured_data.csv: Para Excel/análisis de datos" -ForegroundColor Gray
 Write-Host "  • json_output/: Para programación/scripts automáticos" -ForegroundColor Gray
 Write-Host ""
-Write-Host "⚠️  Para procesar TODOS los archivos, modifica la línea:" -ForegroundColor Yellow
-Write-Host "    'Select-Object -First 10' y quita esta limitación" -ForegroundColor Gray
+Write-Host "💡 Para procesar SOLO 10 archivos de prueba, modifica la línea:" -ForegroundColor Yellow
+Write-Host "    'Get-ChildItem -Path `$replay_dir -Filter `"*.StormReplay`"' y añade '| Select-Object -First 10'" -ForegroundColor Gray
 Write-Host ""
 Write-Host "🎯 CSV ESTRUCTURADO FUNCIONAL - Todas las estadísticas y talentos extraídos correctamente!" -ForegroundColor Green
