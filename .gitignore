@@ -1,0 +1,23 @@
+# Excluir carpeta de archivos de repetición (muy pesada)
+Saves/
+
+# Archivos de salida generados (se pueden regenerar)
+structured_data.csv
+combined_output.csv
+json_output/
+
+# Archivos temporales de Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# Archivos temporales de PowerShell
+*.tmp
+*.temp
+
+# Logs
+*.log
+
+# Archivos de backup
+*.bak
+*.backup
