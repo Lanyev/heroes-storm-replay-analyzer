@@ -155,9 +155,9 @@ $csv_header = @(
 Add-Content -Path $structured_csv -Value ($csv_header -join ",")
 
 
-# Get the first 5 .StormReplay files by name (oldest)
-$replay_files = Get-ChildItem -Path $replay_dir -Filter "*.StormReplay" | Sort-Object Name | Select-Object -First 5
-# Ahora $replay_files contiene solo los primeros 5 archivos por nombre (más antiguos)
+# Get all .StormReplay files by name (oldest to newest)
+$replay_files = Get-ChildItem -Path $replay_dir -Filter "*.StormReplay" | Sort-Object Name
+# Ahora $replay_files contiene todos los archivos ordenados por nombre (más antiguos a más nuevos)
 
 $totalFiles = $replay_files.Count
 $processedCount = 0
